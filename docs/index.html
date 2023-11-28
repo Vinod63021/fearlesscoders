@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fearless coders</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #1a1a1a, #000); /* Gradient background */
+            color: #fff; /* Text color set to white */
+        }
+
+        h1 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 20px;
+            font-size: 36px;
+            letter-spacing: 2px;
+        }
+
+        #image-container {
+            overflow: hidden;
+            max-width: 80%;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #slideshow {
+            display: flex;
+            position: relative;
+            height: 50vh; /* Set the height to 50% of the viewport height */
+            transition: transform 1s ease-in-out; /* Transition effect for smoother image change */
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        img {
+            width: 50%; /* Increase the width of the image to 50% of the container */
+            height: auto;
+            object-fit: cover;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        img.centered {
+            opacity: 1; /* Show the centered image */
+            z-index: 1; /* Ensure the centered image is on top */
+        }
+
+        p {
+            margin-top: 20px;
+            background-color: rgba(51, 51, 51, 0.9); /* Background color for the paragraph section set to dark gray */
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            line-height: 1.6;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>FEARLESS CODERS</h1>
+    <div id="image-container">
+        <div id="slideshow">
+            <img src="data:image/png;base64,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" class="centered">
+            <img src="https://herewecode.io/wp-content/uploads/2022/07/how-to-start-with-git-and-create-a-repository-in-github.png">
+            <img src="https://media.licdn.com/dms/image/D4E12AQH1UfCTnX0RNw/article-cover_image-shrink_720_1280/0/1676345990175?e=2147483647&v=beta&t=6yroANPp3_pwJ7wYnPiEEBuTuRL6o9QxvYovoyelltg">
+            <img src="https://img.freepik.com/free-vector/app-development-banner_33099-1720.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1701043200&semt=ais">
+            <img src="https://www.codelivly.com/api/public/images/1693127726854.jpg" alt="Description of image 5">
+            <img src="https://5.imimg.com/data5/SELLER/Default/2021/6/FN/BQ/QY/25717523/c-programming-course-250x250.png">
+            <img src="https://i0.wp.com/dariusforoux.com/wp-content/uploads/2017/04/Do-It-Today-Not-Tomorrow.png?fit=665%2C499&ssl=1">
+            <img src="https://enhance42.com/assets/general/social-hero.png">
+        </div>
+    </div>
+    <p>THIS THE FLATFORM WERE EVERY LEARNING MIND HAS A CHANCE TO DEVELOP THIER CODING SKILLS.<br>
+       --------------------------- LETS LEARN SOMETHING NEW TODAY ------------------------------</p>
+        <a href="https://sadhana.enhance42.com/course/fearless-coders-2023?previouspage=myenrollments#/course/12260000001687605/attend/section/12260000001759157/lesson/12260000001783318" target="_blank">GET STARTED NOW</a>
+
+    <script>
+        // JavaScript for step-wise image scrolling with individual images after each scroll
+        const slideshow = document.getElementById('slideshow');
+        const images = document.querySelectorAll('#slideshow img');
+        let currentIndex = 0;
+
+        function animate() {
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+
+            images.forEach(img => img.classList.remove('centered'));
+            images[currentIndex].classList.add('centered');
+
+            currentIndex++;
+
+            setTimeout(animate, 3000); // Change image every 3 seconds (adjust as needed)
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
